@@ -1,11 +1,9 @@
 function solution(number) {
     var answer = 0;
-    let arr = number.toString().split('');
-    let sum = 0;
     
-    arr.forEach((x) => {
-        sum += (+x);
-    });
+    for (let i of number) {
+        answer += (+i);
+    }
     
-    return sum % 9;
+    return answer % 9;
 }
