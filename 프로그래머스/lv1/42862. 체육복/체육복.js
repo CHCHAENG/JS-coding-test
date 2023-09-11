@@ -7,10 +7,7 @@ function solution(n, lost, reserve) {
     finalLost.sort((a, b) => a - b);
     
     finalLost.forEach((v, i) => {
-        if(finalReserve.length===0){
-            return;
-        }
-        
+    
         if (finalReserve.includes(v - 1)) {
             finalReserve = finalReserve.filter((l) => l !== v - 1);
             answer++;
