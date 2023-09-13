@@ -10,6 +10,6 @@ function solution(number, k) {
         answer.push(v);
     })
     
-    answer = answer.splice(0, answer.length - k);
-    return answer.join("");
+    
+    return answer.splice(0, answer.length - k).join("");
 }
