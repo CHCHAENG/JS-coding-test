@@ -1,51 +1,39 @@
 function solution(numbers) {
-    const answer = new Set();
-
-    for (let i = 1; i <= numbers.length; i++) {
-        const permutation = [...getPermutation([...numbers], i)];
-      
-        const primeNumbers = permutation.filter((arr) => {
-        const number = +arr.join("");
-        const isPrimeNumber = checkPrimeNumber(number);
+    let num = numbers.split("");
+    let answer = 0;
+    let list = new Set();
+    
+    dfs(num, '');
+    
+    function dfs (arr, str) {
+        if (str.length > 0) {
+            if (!list.has(+str)) {
+                list.add(+str);
+                
+                if (isPrime(+str)) answer++;
+            }
+        }
         
-        return isPrimeNumber;
-    });
-
-        primeNumbers.forEach((arr) => {
-            answer.add(+arr.join(""));
-        });
+        if (arr.length > 0) {
+            for (let i = 0; i < arr.length; i++) {
+                let temp = arr.slice(0);
+                temp.splice(i, 1);
+                                
+                dfs(temp, str + arr[i]);
+            }
+        }
     }
     
-    return answer.size;
+    function isPrime(number) {
+        if (number < 2) return false;
+        if (number === 2) return true;
+        
+        for (let i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i === 0) return false;
+        }
+    
+        return true;
+    }
+    
+    return answer;
 }
-
-const checkPrimeNumber = (number) => {
-    if (number < 2) return false;
-
-    for (let i = 2; i <= Math.sqrt(number); i++) {
-        if (number % i === 0) return false;
-    }
-    
-    return true;
-};
-
-const getPermutation = (arr, selectNumber) => {
-    const results = [];
-    
-    if (selectNumber === 1) return arr.map((v) => [v]);
-    
-    else {
-        arr.forEach((fixed, index, origin) => {
-        const rest = [...origin.slice(0, index), ...origin.slice(index + 1)];
-        const permutations = getPermutation(rest, selectNumber - 1);
-        const attached = permutations.map((permutation) => [
-            fixed,
-            ...permutation,
-        ]);
-            
-        results.push(...attached);
-        });
-    }
-
-    return results;
-};
