@@ -1,12 +1,7 @@
 function solution(my_string, num1, num2) {
-    const a = my_string[num1];
-    const b = my_string[num2];
+    my_string = my_string.split("");
     
-    let str = my_string.split("");
-    console.log(a, b)
+    [my_string[num1], my_string[num2]] = [my_string[num2], my_string[num1]];
     
-    str.splice(num1, 1, b);
-    str.splice(num2, 1, a);
-    
-    return str.join("");
+    return my_string.join("");
 }
