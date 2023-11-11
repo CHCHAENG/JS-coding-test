@@ -1,7 +1,7 @@
 function solution(numbers, direction) {
     if (direction === "right") {
         let temp = numbers.pop();
-        numbers = [temp, ...numbers.slice(0, numbers.length)];
+        numbers.unshift(temp);
     } else {
         let temp = numbers[0];
         numbers.shift();
