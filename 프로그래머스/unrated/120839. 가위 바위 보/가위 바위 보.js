@@ -1,11 +1,11 @@
 function solution(rsp) {
-    let answer = "";
+    const list = {
+        2 : 0,
+        0 : 5,
+        5 : 2
+    }
     
-    [...rsp].forEach((v) => {
-        if (v === "2") answer += "0";
-        else if (v === "0") answer += "5";
-        else answer += "2";
-    });
+    let answer = [...rsp].map((v) => list[v]).join("");
     
     return answer;
 }
