@@ -1,13 +1,4 @@
 function solution(priorities, location) {
-
-    // [a, b, c, d]
-    // a / 뒤에중에 높은게 잇으면 다시 unshift
-    // b / ..
-    // c / [1- 2]
-    // d / [2- 3]
-    // a / [3 - 0]
-    // b / [4-1]
-    
     let arr = Array.from(Array(priorities.length), (_, index) => index + 1);
     let answer = [];
 
