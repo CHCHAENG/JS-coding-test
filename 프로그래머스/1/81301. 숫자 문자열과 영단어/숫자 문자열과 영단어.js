@@ -18,11 +18,7 @@ function solution(s) {
     let temp = "";
     
     [...s].forEach((v, i) => {
-        if (checkStr.includes(v)) {
-            if (temp !== "") {
-                answer += numberList[temp];
-            }
-               
+        if (checkStr.includes(v)) {   
             answer += v;
             temp = "";
        
