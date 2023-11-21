@@ -1,21 +1,17 @@
 function solution(s) {
     // Object type으로 주어진 튜플을 배열 형태로 변환
     let arr = s;
-    arr = arr.replaceAll("{", "");
-    arr = arr.replaceAll("},", "}");
-    arr = arr.replaceAll("}", "/");
-    arr = arr.split("/");
-    arr = arr.filter((v) => v !== "");
-    
-    // arr 원소의 배열 길이를 구한 후, 오름차순으로 정렬
-    let arrLength = arr.map((v, i) => [v.length, i]);
-    arrLength.sort((a, b) => a[0] - b[0]);
+    arr = arr.replaceAll("{", "[");
+    arr = arr.replaceAll("}", "]");
+    arr = JSON.parse(arr);
+    arr.sort((a, b) => a.length - b.length);
     
     let answer = [];
     for (let i = 0; i < arr.length; i++) {
-        const [_, index] = arrLength[i];
         
-        arr[index].split(",").forEach((v) => {
+        // 원소 하나씩 비교
+        arr[i].forEach((v) => {
+            // answer에 포함되지 않은 값만 추가
             if (!answer.includes(+v)) {
                 answer.push(+v)
             }
