@@ -1,17 +1,4 @@
 function solution(s) {
-    // n을 이진수로 변환하는 함수
-    const changeBinary = (n) => {
-        let num = "";
-        
-        while (n > 0) {
-            num += n % 2;
-            n = parseInt(n / 2);
-        }
-        
-        return [...num].reverse().join("");
-    }
-    
-    
     let answer = [0, 0];
     
     // 1이 될때 까지 반복
@@ -29,7 +16,7 @@ function solution(s) {
         answer[1] += originLength - nextLength;
         
         // s의 길이를 이진수로 변환
-        s = changeBinary(s.length);
+        s = s.length.toString('2');
         
         // 반복한 횟수 count
         answer[0]++;
