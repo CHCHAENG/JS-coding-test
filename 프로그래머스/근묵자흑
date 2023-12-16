@@ -1,0 +1,25 @@
+// Run by Node.js
+
+const solution = (N, K) => {
+	console.log(Math.ceil((N - 1) / (K - 1)));
+};
+
+const readline = require("readline");
+const rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout
+});
+
+let input = [];
+
+rl.on("line", function(line) {
+	if (!line) {
+		r1.close();
+	} else {
+		input.push(line);
+	} 
+}).on("close", function() {
+	const [N, K] = input[0].split(" ").map(Number);
+	solution(N, K);
+	process.exit();
+});
