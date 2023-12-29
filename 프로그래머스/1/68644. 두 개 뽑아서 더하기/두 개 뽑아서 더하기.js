@@ -1,13 +1,11 @@
 function solution(numbers) {
-    const temp = [];
-
+    let answer = new Set([]);
+ 
     for (let i = 0; i < numbers.length; i++) {
-        for (let j = i + 1; j < numbers.length; j++) { 
-            temp.push(numbers[i] + numbers[j]); 
+        for (let j = i + 1; j < numbers.length; j++) {
+            answer.add(numbers[i] + numbers[j]);
         }
-    } 
+    }
     
-    const answer = [...new Set(temp)];
-    
-    return answer.sort((a, b) => a - b);
+    return Array.from(answer).sort((a, b) => a - b);
 }
