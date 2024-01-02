@@ -1,14 +1,14 @@
 function solution(elements) {
-    const set = new Set();
-    for (let i = 1; i <= elements.length; i++) {
-        for (let j = 0; j < elements.length; j++) {
-            let seq = elements.slice(j, j + i);
-            if (i + j > elements.length) {
-                seq = [...seq, ...elements.slice(0, i + j - elements.length)];
-            }
-            const sum = seq.reduce((acc, v) => acc + v, 0);
-            set.add(sum);
+    let answer = new Set();
+    const length = elements.length;
+    
+    for (let i = 0; i < length; i++) {
+        let sum = 0;
+        
+        for (let j = i; j < length + i; j++) {
+            sum += elements[j % length];
+            answer.add(sum);
         }
     }
-    return set.size;
+    return answer.size;
 }
