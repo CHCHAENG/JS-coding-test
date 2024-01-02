@@ -1,14 +1,12 @@
-const solution = (a, b, n) => {
+function solution(a, b, n) {
     let answer = 0;
-    let remain = n;
-
-    while (true) {
-        if (a > remain) {
-            break;
-        }
-        answer += parseInt(remain/a)*b;
-        remain = parseInt(remain/a)*b + remain%a
+    
+    while (n >= a) {
+        const add = parseInt(n / a) * b;
+        
+        answer += add;
+        n = add + (n % a);
     }
-
+    
     return answer;
 }
