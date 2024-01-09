@@ -1,15 +1,14 @@
 function solution(cards1, cards2, goal) {
-
-    for(const s of goal) {
-
-        if(cards1[0] == s) {
-            cards1.shift();
-        } else if(cards2[0] == s) {
-            cards2.shift();
+    var answer = "Yes";
+    
+    goal.forEach((v, i) => {
+        if (cards1[0] === v) {
+            cards1 = cards1.slice(1);
+        } else if (cards2[0] === v) {
+            cards2 = cards2.slice(1);
         } else {
-            return "No"
+            answer = "No"
         }
-    }
-
-    return "Yes";
+    })
+    return answer;
 }
