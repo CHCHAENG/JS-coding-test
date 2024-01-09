@@ -1,24 +1,32 @@
 function solution(s) {
+    let answer = 0;
+    const startList = ["[", "{", "("];
     const stack = [];
-    let result = 0;
-    let isRight = true;
+    
     if (s.length % 2 === 1) return 0;
-
-    for (let i = 0; i < s.length; i++){
-        let candidate = s.slice(i) + s.slice(0, i);
-        isRight = true;
-        for (let word of candidate) {
-            if (word === "(" || word === "{" || word === "[") stack.push(word);
-            else {
-                let leftWord = stack.pop();
-                if (word === ")" && leftWord === "(") continue;
-                if (word === "}" && leftWord === "{") continue;
-                if (word === "]" && leftWord === "[") continue;
-                isRight = false;
+    
+    for (let i = 0; i < s.length; i++) {
+        let temp = s.slice(i) + s.slice(0, i);
+        let flag = true;
+                
+        for (let j = 0; j < temp.length; j++) {
+            if (startList.includes(temp[j])) {
+                stack.push(temp[j]);
+            } else {
+                const left = stack.pop();
+                
+                if (left === "(" && temp[j] === ")") continue;
+                if (left === "{" && temp[j] === "}") continue;
+                if (left === "[" && temp[j] === "]") continue;
+                
+                flag = false;
                 break;
             }
         }
-        if (isRight) result++;
+        
+        if (flag) answer++;
+        
     }
-    return result;
+    
+    return answer;
 }
