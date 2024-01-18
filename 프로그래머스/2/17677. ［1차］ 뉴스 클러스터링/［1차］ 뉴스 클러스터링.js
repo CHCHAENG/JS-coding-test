@@ -1,32 +1,55 @@
 function solution(str1, str2) {
-    const CONSTANT = 65536;
-    const [setStr1, setStr2] = [genSet(str1), genSet(str2)];
-    if(setStr1.length === 0 && setStr2.length === 0) return CONSTANT;
+    let answer = 0;
+    let A = 0, B = 0;
     
-    const set = new Set([...setStr1, ...setStr2]);
-    let interLen = 0, unionLen = 0;
-    set.forEach(x => {
-        const existsLen1 = setStr1.filter(y => x === y).length;
-        const existsLen2 = setStr2.filter(y => x === y).length;
-        interLen += Math.min(existsLen1, existsLen2);
-        unionLen += Math.max(existsLen1, existsLen2);
-    });
+    const list1 = [];
+    const list2 = [];
     
-    return Math.floor((interLen / unionLen) * CONSTANT);
-}
-
-function genSet(str) {
-    str = str.toLowerCase();
-    const result = [];
+    // 알파벳에 속하는지 확인
+    const checkChar = (str, val) => {
+        if (str.charCodeAt(val) >= 97 && str.charCodeAt(val) <= 122)
+            return true;
+        
+        return false;
+    }
     
-    for(let i = 0; i < str.length - 1; i++) {
-        if(isAlphabet(str[i]) && isAlphabet(str[i + 1])) {
-            result.push(str[i] + str[i + 1]);
+    // 리스트 만들기
+    const makeList = (str, list) => {
+        str = str.toLowerCase();
+        
+        for (let i = 0; i < str.length - 1; i++) {
+            
+            if (checkChar(str, i) && checkChar(str, i + 1)) 
+                list.push(str[i] + str[i + 1]);
         }
     }
-    return result;
-}
     
-function isAlphabet(ch) {
-    return 97 <= ch.charCodeAt() && ch.charCodeAt() <= 122;
+    // 교집합 & 합집합 구하기
+    const countList = (first, second) => {
+        let temp = [...second];
+        
+        for (let i = 0; i < first.length; i++) {
+            const index = temp.indexOf(first[i]);
+            
+            if (index != -1) {
+                A++;
+                temp.splice(index, 1);
+            }
+        }
+        
+        B = temp.length + first.length;
+    }
+    
+    // list 만들기
+    makeList(str1, list1);
+    makeList(str2, list2);
+    
+    // 모두 공집합일 경우
+    if (list1.length === 0 && list2.length === 0) return 65536;
+    
+    // 교집합 & 합집합 구하기
+    if (list1.length > list2.length) countList(list2, list1);
+    else countList(list1, list2);
+    
+    return parseInt((A / B) * 65536);
 }
