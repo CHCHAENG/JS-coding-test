@@ -1,15 +1,10 @@
 function solution(triangle) {
-  for (let i = 1; i < triangle.length; i++) {
-    for (let j = 0; j < triangle[i].length; j++) {
-      const firstCase = triangle[i - 1][j - 1] ?? 0;
-      const secondCase = triangle[i - 1][j] ?? 0;
-
-      if (secondCase >= firstCase) {
-        triangle[i][j] += secondCase;
-        continue;
-      }
-      triangle[i][j] += firstCase;
+    let answer = 0;
+    
+    for (let i = triangle.length - 2; i >= 0; i--) {
+        for (let j = 0; j < triangle[i].length; j++) {
+            triangle[i][j] = Math.max(triangle[i][j] + triangle[i + 1][j], triangle[i][j] + triangle[i + 1][j + 1]);
+        }
     }
-  }
-  return Math.max(...triangle.at(-1));
+    return triangle[0][0];
 }
