@@ -5,33 +5,23 @@ const rl = readline.createInterface({
 });
 
 function solution (A, B) {
-    let list = [];
-    let queue = [];
+    let answer = -1;
+    dfs (A, B, 0);
     
-    queue.push([A, 1]);
-    list.push(A);
-    
-    while (queue.length) {
-        const [value, depth] = queue.shift();
-        
-        if (value === B) {
-            console.log(depth);
-            return;
+    function dfs (start, goal, cnt) {
+        if (start === goal) answer = cnt + 1;
+        else {
+            if (start * 2 <= goal) {
+                dfs(start * 2, goal, cnt + 1);
+            }
+            
+            if (Number(start + '1') <= goal) {
+                dfs(Number(start + '1'), goal, cnt + 1);
+            }
         }
-        
-        if (value > B) {
-            continue;
-        }
-        
-        let li = [value * 2, Number(value.toString() + "1")];
-        let num1 = value * 2;
-        let num2 = Number(value.toString() + "1");
-        
-        if (!list.includes(num1)) queue.push([num1, depth + 1]);
-        if (!list.includes(num2)) queue.push([num2, depth + 1]);
     }
     
-    console.log(-1);
+    console.log(answer);
 }
 
 rl.on('line', function(line) {
